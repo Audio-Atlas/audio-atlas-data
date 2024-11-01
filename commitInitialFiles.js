@@ -9,6 +9,7 @@ const { execSync } = require('child_process');
 // copy the contents to a new directory in to
 const directories = fs.readdirSync(from);
 for (const directory of directories) {
+    console.log(`Copying ${directory}...`);
     const fromDirectory = path.join(from, directory);
     const toDirectory = path.join(to, directory);
     fs.mkdirSync(toDirectory);
@@ -21,10 +22,12 @@ for (const directory of directories) {
     }
 
     // git add and commit
+    console.log('Adding and committing...');
     execSync(`git add ${toDirectory}`);
     execSync(`git commit -m "Initial commit of ${directory}"`);
 
     // git push
     execSync('git push');
-
+    console.log('Done.');
+    console.log();
 }

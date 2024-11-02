@@ -12,6 +12,15 @@ for (const directory of directories) {
     console.log(`Copying ${directory}...`);
     const fromDirectory = path.join(from, directory);
     const toDirectory = path.join(to, directory);
+
+    // if the directory already exists, skip it
+    if (fs.existsSync(toDirectory)) {
+        console.log(`Directory ${directory} already exists. Skipping...`);
+        continue;
+    }
+
+    console.log(`Copying ${fromDirectory} to ${toDirectory}...`);
+    // break;
     fs.mkdirSync(toDirectory);
 
     const files = fs.readdirSync(fromDirectory);
